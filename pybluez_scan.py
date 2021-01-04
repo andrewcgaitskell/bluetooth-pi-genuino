@@ -6,5 +6,5 @@ from gattlib import DiscoveryService
 service = DiscoveryService()
 devices = service.discover(2)
 
-for address, name in devices.items():
-    print("Name: {}, address: {}".format(name, address))
+for address, name, rssi in devices.items():
+    print("Name: {}, address: {}, rssi: {}".format(name, address, rssi))
