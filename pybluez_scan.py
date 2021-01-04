@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PyBluez ble example scan.py"""
 
-from bluetooth.ble import DiscoveryService
+from gattlib import DiscoveryService
 
 service = DiscoveryService()
 devices = service.discover(2)
