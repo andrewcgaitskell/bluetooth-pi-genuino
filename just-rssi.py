@@ -9,12 +9,20 @@ current_time = now.strftime("%H:%M:%S")
 rssi_list = []
 
 from beacontools import BeaconScanner, IBeaconFilter, IBeaconAdvertisement
+from beacontools import parse_packet
+
 
 def callback(bt_addr, rssi, packet, additional_info):
     print("<%s, %d> " % (bt_addr, rssi))
     current_time = now.strftime("%H:%M:%S")
     iso = now.isoformat()
     rssi_list.append([iso, bt_addr, rssi])
+    # iBeacon Advertisement
+    adv = parse_packet(packet)
+    print("UUID: %s" % adv.uuid)
+    print("Major: %d" % adv.major)
+    print("Minor: %d" % adv.minor)
+    print("TX Power: %d" % adv.tx_power)
 # scan for all iBeacon advertisements from beacons with certain properties:
 # - uuid
 # - major
