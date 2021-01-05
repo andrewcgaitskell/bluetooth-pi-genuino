@@ -14,15 +14,8 @@ from beacontools import parse_packet
 
 def callback(bt_addr, rssi, packet, additional_info):
     print("<%s, %d> " % (bt_addr, rssi))
-    current_time = now.strftime("%H:%M:%S")
-    iso = now.isoformat()
-    rssi_list.append([iso, bt_addr, rssi])
-    # iBeacon Advertisement
-    adv = parse_packet(packet)
-    print("UUID: %s" % adv.uuid)
-    print("Major: %d" % adv.major)
-    print("Minor: %d" % adv.minor)
-    print("TX Power: %d" % adv.tx_power)
+    rssi_list.append([bt_addr, rssi])
+    
 # scan for all iBeacon advertisements from beacons with certain properties:
 # - uuid
 # - major
@@ -39,8 +32,17 @@ scanner.stop()
 scanner = BeaconScanner(callback,
     packet_filter=IBeaconAdvertisement
 )
-scanner.start()
-time.sleep(5)
-scanner.stop()
 
-print(rssi_list)
+rssi_master = []
+
+i = 0
+
+while i < 10:
+    iso = now.isoformat()
+    scanner.start()
+    time.sleep(1)
+    scanner.stop()
+    rssi_master.append(rssi_list)
+    i = i + 1
+    
+print(rssi_master)
