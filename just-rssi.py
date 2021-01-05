@@ -21,12 +21,12 @@ def callback(bt_addr, rssi, packet, additional_info):
 # - major
 # - minor
 # at least one must be specified.
-scanner = BeaconScanner(callback, 
-    device_filter=IBeaconFilter(uuid="8a5e7768-4f64-11eb-ae93-0242ac130002")
-)
-scanner.start()
-time.sleep(5)
-scanner.stop()
+#scanner = BeaconScanner(callback, 
+#    device_filter=IBeaconFilter(uuid="8a5e7768-4f64-11eb-ae93-0242ac130002")
+#)
+#scanner.start()
+#time.sleep(5)
+#scanner.stop()
 
 # scan for all iBeacon advertisements regardless from which beacon
 scanner = BeaconScanner(callback,
@@ -43,6 +43,7 @@ while i < 10:
     time.sleep(1)
     scanner.stop()
     rssi_master.append(rssi_list)
+    rssi_list = []
     i = i + 1
     
 print(rssi_master)
