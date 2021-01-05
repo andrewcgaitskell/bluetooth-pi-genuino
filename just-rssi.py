@@ -1,11 +1,19 @@
 ##https://github.com/citruz/beacontools/blob/master/examples/scanner_ibeacon_example.py
 import time
+from datetime import datetime
+
+now = datetime.now()
+
+current_time = now.strftime("%H:%M:%S")
+
+rssi_list = []
 
 from beacontools import BeaconScanner, IBeaconFilter, IBeaconAdvertisement
 
 def callback(bt_addr, rssi, packet, additional_info):
     print("<%s, %d> " % (bt_addr, rssi))
-
+    current_time = now.strftime("%H:%M:%S")
+    rssi_list.append([current_time, bt_addr, rssi])
 # scan for all iBeacon advertisements from beacons with certain properties:
 # - uuid
 # - major
@@ -25,3 +33,5 @@ scanner = BeaconScanner(callback,
 scanner.start()
 time.sleep(5)
 scanner.stop()
+
+print(rssi_list)
